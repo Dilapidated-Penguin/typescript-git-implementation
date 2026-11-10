@@ -17,7 +17,9 @@ Git is a content-addressable filesystem with a version control interface on top.
 - **Objects** live in `.git/objects`, keyed by the SHA-1 hash of their content (plus a header). There are four types:
   - **Blob**: the contents of a file (no name, no metadata)
   - **Tree**: a directory listing mapping names and modes to blobs or other trees
+
   <img width="452" height="73" alt="tree" src="https://github.com/user-attachments/assets/236562ad-a947-4104-ae5e-b232beb697cb" />
+
   - **Commit**: points to a tree (the snapshot), zero or more parent commits, and author/committer/message metadata
   - **Tag**: an annotated pointer to another object
 - **Refs** are human-readable names for commit hashes. Branches are files under `.git/refs/heads/`, and tags are under `.git/refs/tags/`.
@@ -45,9 +47,12 @@ Usage aligns largely with the usage of git for the aformentioned implemented com
 
 Making use of the node-object-hash@3.1.1 package, and the pako@2.1.0 package, using zlib compression, the objects library in this implementation, closely mirroring their git counterpart with the principal difference being that objects being that git objects, for the sake of readability are constructed using typescript objects:
 - Commits:
+
 <img width="679" height="114" alt="image" src="https://github.com/user-attachments/assets/a3c165c2-a6b1-4ef8-bd8b-e25881c33415" />
+
 - Trees and index:
 Tree objects and the index are constructed using a list of the tree_reference object:
+
 <img width="250" height="100" alt="image" src="https://github.com/user-attachments/assets/da7d2be1-4bb2-4374-b716-5d81c53f4e08" />
 
 ## Resources
