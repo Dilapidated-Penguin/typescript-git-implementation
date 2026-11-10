@@ -51,6 +51,8 @@ Making use of the node-object-hash@3.1.1 package, and the pako@2.1.0 package, us
 
 
 <img width="679" height="114" alt="image" src="https://github.com/user-attachments/assets/a3c165c2-a6b1-4ef8-bd8b-e25881c33415" />
+
+
 - Trees and index:
 Tree objects and the index are constructed using a list of the tree_reference object:
 
