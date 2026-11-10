@@ -7,7 +7,6 @@ exports.add = add;
 const path_1 = __importDefault(require("path"));
 const globby_1 = require("globby");
 const fs_1 = __importDefault(require("fs"));
-const interfaces_1 = require("../util/interfaces");
 const branch_logic_1 = require("../util/branch_logic");
 const object_library_1 = require("../util/object_library");
 /**
@@ -28,7 +27,6 @@ function add(input_paths, to_ignore) {
         const rel_path = path_1.default.relative(this.path, current_path);
         return rel_path.replace(/\\/g, '/');
     });
-    (0, interfaces_1.logger)(`path globs: `, path_glob_list);
     let index_deletion = [];
     const matched_files = path_glob_list.flatMap((path_glob) => {
         const path_files = (0, globby_1.globbySync)(path_glob, {
@@ -53,7 +51,6 @@ function add(input_paths, to_ignore) {
             return path_files;
         }
     });
-    (0, interfaces_1.logger)(`matched files: `, matched_files);
     const index_addition = matched_files.flatMap((rel_file_path) => {
         try {
             const file_data = fs_1.default.readFileSync(rel_file_path, 'utf-8');
@@ -86,7 +83,6 @@ function add(input_paths, to_ignore) {
             throw new Error(`fatal: pathspec ${path_glob} did not match any files`);
         }
         set_index(updated_index);
-        (0, interfaces_1.logger)(`removed ${path_glob} from the index dir`);
     });
     console.dir(index_addition);
     append_index(index_addition);

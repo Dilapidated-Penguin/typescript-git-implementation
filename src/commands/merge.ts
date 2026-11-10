@@ -1,7 +1,7 @@
 import fs from "fs"
 import { branch_operations, staging_logic } from "../util/branch_logic"
 import { object_library } from "../util/object_library"
-import { directory_obj,commit_type,tree_reference, changes, logger } from "../util/interfaces"
+import { directory_obj,commit_type,tree_reference, changes } from "../util/interfaces"
 import { structural_merge_helpers} from "./merge/structural_merge"
 import { hunk, merge_helper } from "./merge/merge"
 import { index_logic } from "./merge/index_logic"
@@ -114,8 +114,6 @@ export function merge(this: directory_obj, feature_head: string, master_head?: s
 
     let file_merge_results:merge_helper = three_way_merge(root_sequence,root_feature_hunks,root_master_hunks,feature_head)
     const file_result: string = file_merge_results.final_sequence.join(`\n`)
-    logger('file result')
-    console.dir(file_result)
 
     if (!file_merge_results.file_contains_conflict) {
       structural_merge_result.index = structural_merge_result.index.filter((entry: tree_reference) => {

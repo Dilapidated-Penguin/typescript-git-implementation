@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.commit = commit;
-const interfaces_1 = require("../util/interfaces");
 const object_library_1 = require("../util/object_library");
 const changes_1 = require("../util/changes");
 const branch_logic_1 = require("../util/branch_logic");
@@ -43,12 +42,12 @@ function commit(description) {
         description: description,
         date: Date.now()
     };
-    (0, interfaces_1.logger)('new commit has been made');
     const new_commit_hash = save_object(new_commit);
     //update the branch in the ref/heads file to correspond with new commit to branch and clear the index file of the tree
     const branch_ref_dir = path_1.default.join(this.ref_heads_dir, HEAD_branch);
     fs_1.default.writeFileSync(branch_ref_dir, new_commit_hash);
     fs_1.default.rmSync(this.merge_head, { force: true });
+    fs_1.default.rmSync(this.merge_msg, { force: true });
 }
 /**
  * builds the final tree for the commit
@@ -70,7 +69,6 @@ function build_commit_tree(ref_list) {
             }
         }
         const parent_path = segments.slice(0, -1).join(path_1.default.sep);
-        (0, interfaces_1.logger)('parent_path: ', parent_path);
         folder_map.get(parent_path).push(entry);
     }
     // Process folders deepest first so child hashes are ready for parents

@@ -1,4 +1,4 @@
-import { commit_type, logger, tree_reference } from "../util/interfaces"
+import { commit_type, tree_reference } from "../util/interfaces"
 import { object_library } from "../util/object_library"
 import { change_operations } from "../util/changes"
 import { branch_operations,staging_logic } from "../util/branch_logic"
@@ -43,7 +43,6 @@ export function commit(this: directory_obj, description?: string) {
     description: description,
     date:Date.now()
   }
-  logger('new commit has been made')
   const new_commit_hash: string = save_object(new_commit)
 
   //update the branch in the ref/heads file to correspond with new commit to branch and clear the index file of the tree
@@ -76,7 +75,6 @@ function build_commit_tree(this: directory_obj, ref_list: tree_reference[]): tre
       }
     }
     const parent_path: string = segments.slice(0, -1).join(path.sep)
-    logger('parent_path: ', parent_path)
     folder_map.get(parent_path)!.push(entry)
   }
 

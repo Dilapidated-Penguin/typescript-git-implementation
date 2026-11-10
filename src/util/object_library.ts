@@ -1,4 +1,4 @@
-import { commit_type, directory_obj, logger, tree_reference } from "../util/interfaces"
+import { commit_type, directory_obj, tree_reference } from "../util/interfaces"
 import path from "path"
 import fs from "fs"
 import { branch_operations } from "./branch_logic"

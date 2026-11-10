@@ -86,7 +86,8 @@ function current_working_directory(working_directory = process.cwd()) {
         index_dir: path.join(default_repo, config_json_1.default.index_dir),
         repo_dir: default_repo,
         path: working_directory,
-        merge_head: path.join(default_repo, config_json_1.default.merge_head)
+        merge_head: path.join(default_repo, config_json_1.default.merge_head),
+        merge_msg: path.join(default_repo, config_json_1.default.merge_msg)
     };
 }
 function Repository(repo_dir) {

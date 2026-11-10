@@ -65,6 +65,11 @@ function status() {
     };
     const index = get_index();
     const index_map = flatten_tree(index, { files_only: true }); //index
+    const mid_merge = fs.existsSync(this.merge_head);
+    //conflict --------------------------
+    if (mid_merge) {
+        commit_message + 'you have unmerged paths \n';
+    }
     const project_working_state = current_project_state.bind(this)(); //working directory
     const branch_name = get_HEAD_branch();
     const branch_hash = get_branch_hash(branch_name);
@@ -104,6 +109,15 @@ function status() {
     if (untracked_files.size !== 0) {
         commit_message += `untracked files:\n   (use "node-git add <file>..." to stage)\n`;
         commit_message += colors_1.default.red(output_record(untracked_files, undefined)) + `\n`;
+    }
+    //merge conflict
+    if (mid_merge) {
+        commit_message += `
+    Unmerged paths:\n
+      (use "git add <file>..." to mark resolution)\n
+      (use "git rm <file>..." to mark resolution)\n
+    \t${fs.readFileSync(this.merge_msg)}
+    `;
     }
     return {
         message: commit_message,

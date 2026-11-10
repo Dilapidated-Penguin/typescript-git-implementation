@@ -54,12 +54,6 @@ function merge_helper() {
         for (let base_i = 0; base_i < root_sequence.length + 1; base_i++) {
             const feature_hunk = feature_hunk_list.find((given_hunk) => given_hunk.hunk_space[0] === base_i);
             const master_hunk = master_hunk_list.find((given_hunk) => given_hunk.hunk_space[0] === base_i);
-            console.log('--------------------------');
-            console.log('--------------------------');
-            console.log('feature hunk');
-            console.dir(feature_hunk, { depth: null });
-            console.log('master hunk');
-            console.dir(master_hunk, { depth: null });
             function merge_hunk_to_root(hunk_to_merge) {
                 let [sx, l] = [hunk_to_merge.hunk_space[0], 0];
                 let last_edit_length = 0;
@@ -75,7 +69,6 @@ function merge_helper() {
                 * @param their_hunk The hunk from the feature branch being merged
                 */
             function log_conflict(our_hunk, their_hunk) {
-                console.log('conflict in base spaces between hunk occurs');
                 contains_conflict = true;
                 const our_hunk_edits = our_hunk.edit_list.flatMap((current_edit) => {
                     return current_edit.ys_slice;

@@ -27,9 +27,7 @@ function checkout(branch) {
         throw new Error('unresolved merge conflict.cannot merge. aborting');
     }
     const feature_branch_hash = fs_1.default.readFileSync(alt_branch_ref, 'utf-8');
-    console.log('last commit directory');
     const last_commit_directory = hash_to_directory((_a = get_HEAD_hash()) !== null && _a !== void 0 ? _a : undefined);
-    console.log('feature');
     const feature_branch_directory = hash_to_directory(feature_branch_hash !== null && feature_branch_hash !== void 0 ? feature_branch_hash : undefined);
     const index_map = flatten_tree(index, { files_only: true });
     const working_directory = status_1.current_project_state.bind(this)();
@@ -39,12 +37,9 @@ function checkout(branch) {
     let to_create = new Map(); //dir,hash
     let to_delete = new Set();
     const all_keys = [...new Set([...last_commit_directory.keys(), ...feature_branch_directory.keys(), ...working_directory.keys()])];
-    console.log('all keys: ', all_keys);
     for (const dir of all_keys) {
         const HEAD_hash = last_commit_directory.get(dir);
         const target_hash = feature_branch_directory.get(dir);
-        console.log('head ', HEAD_hash);
-        console.log('target ', target_hash);
         if (HEAD_hash !== target_hash) {
             const in_staged = Object.values(staged_changes).find((change_prop) => change_prop.has(dir));
             const in_unstaged = Object.values(unstaged_changes).find((change_prop) => change_prop.has(dir));
@@ -65,11 +60,8 @@ function checkout(branch) {
             else {
                 if (target_hash) {
                     to_create.set(dir, target_hash);
-                    console.log(dir, ': ', target_hash);
-                    console.log('file contents', get_object(target_hash));
                 }
                 if (HEAD_hash) {
-                    console.log('delete', dir);
                     to_delete.add(dir);
                 }
             }
@@ -78,7 +70,6 @@ function checkout(branch) {
     //deleting paths:
     for (const to_delete_path of to_delete) {
         fs_1.default.rmSync(to_delete_path);
-        console.log('deleting path', to_delete_path);
         let path_dir = path_1.default.dirname(to_delete_path);
         while ((path_dir !== this.repo_dir) && (path_dir !== path_1.default.dirname(path_dir))) {
             const entries = fs_1.default.readdirSync(path_dir);
@@ -95,10 +86,7 @@ function checkout(branch) {
     //creating paths:
     for (const [to_create_path, target_hash] of to_create) {
         fs_1.default.mkdirSync(path_1.default.dirname(to_create_path), { recursive: true });
-        console.log('creating path', to_create_path);
-        console.log('target hash', target_hash);
         const target_data = get_object(target_hash);
-        console.log('d');
         fs_1.default.writeFileSync(to_create_path, target_data, 'utf-8');
         index.push({
             reference_path: to_create_path,

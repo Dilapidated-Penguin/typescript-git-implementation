@@ -42,6 +42,3 @@ export interface directory_obj{
 export interface change_plus_unchanged extends changes{
   unchanged:Map<string,string>
 }
-export function logger(...message:any[]){
-  console.log(color.green.bold(message.join('')))
-}

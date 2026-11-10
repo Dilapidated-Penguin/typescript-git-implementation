@@ -47,13 +47,9 @@ function object_library(path_directories) {
     const clear_directory = () => {
         fs_1.default.readdirSync(path_directories.path)
             .filter(sub_path => {
-            console.log(path_1.default.resolve(sub_path));
-            console.log(path_1.default.resolve(path_directories.repo_dir));
             return path_1.default.resolve(sub_path) !== path_1.default.resolve(path_directories.repo_dir);
         })
             .map((sub_path) => {
-            console.log('delete', sub_path);
-            console.log('delete', path_1.default.dirname(sub_path));
             fs_1.default.rmSync(sub_path);
         });
     };

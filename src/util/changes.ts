@@ -1,4 +1,4 @@
-import { tree_reference, changes, change_plus_unchanged, directory_obj, logger } from "./interfaces"
+import { tree_reference, changes, change_plus_unchanged, directory_obj } from "./interfaces"
 import { object_library } from "./object_library"
 
 interface flatten_option{
@@ -39,7 +39,6 @@ export function change_operations(path_directories: directory_obj) {
     let latest_commit
     if (commit_hash && (latest_commit = get_commit(commit_hash))) {
       const commit_tree: tree_reference[] = get_object(latest_commit.tree_hash) as tree_reference[]
-      logger('directory: ',flatten_tree(commit_tree))
       return flatten_tree(commit_tree)
     }
     return new Map()

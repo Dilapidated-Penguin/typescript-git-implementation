@@ -2,7 +2,7 @@ import path from "path"
 import { convertPathToPattern, globbySync } from "globby"
 import fs from "fs"
 
-import { directory_obj, logger, tree_reference } from "../util/interfaces"
+import { directory_obj, tree_reference } from "../util/interfaces"
 import { staging_logic } from "../util/branch_logic"
 import { object_library } from "../util/object_library"
 
@@ -27,7 +27,6 @@ export function add(this: directory_obj, input_paths: string[], to_ignore: strin
     return rel_path.replace(/\\/g, '/')
   })
 
-  logger(`path globs: `, path_glob_list)
 
   let index_deletion:string[] = []
   const matched_files = path_glob_list.flatMap((path_glob: string) => {
@@ -53,8 +52,6 @@ export function add(this: directory_obj, input_paths: string[], to_ignore: strin
       return path_files
     }
   })
-
-  logger(`matched files: `, matched_files)
 
   const index_addition: tree_reference[] = matched_files.flatMap((rel_file_path: string) => {
     try {
@@ -88,7 +85,6 @@ export function add(this: directory_obj, input_paths: string[], to_ignore: strin
       throw new Error(`fatal: pathspec ${path_glob} did not match any files`)
     }
     set_index(updated_index)
-    logger(`removed ${path_glob} from the index dir`)
   })
   console.dir(index_addition)
   append_index(index_addition)

@@ -48,5 +48,21 @@ function structural_merge_helpers(path_directories) {
         }
         return shared_ancestor;
     };
-    return { return_tree_diff, return_common_ancestor };
+    //
+    const BASE = 4, OURS = 2, THEIRS = 1;
+    const conflictLabels = {
+        [BASE | OURS | THEIRS]: "both modified",
+        [BASE | THEIRS]: "deleted by us",
+        [BASE | OURS]: "deleted by them",
+        [OURS | THEIRS]: "both added",
+        [BASE]: "both deleted",
+        [OURS]: "added by us",
+        [THEIRS]: "added by them",
+    };
+    const get_conflict_label = (has_base, has_theirs, has_ours) => {
+        var _a;
+        const key = (has_base ? BASE : 0) | (has_ours ? OURS : 0) | (has_theirs ? THEIRS : 0);
+        return (_a = conflictLabels[key]) !== null && _a !== void 0 ? _a : "unknown conflict state";
+    };
+    return { return_tree_diff, return_common_ancestor, get_conflict_label };
 }

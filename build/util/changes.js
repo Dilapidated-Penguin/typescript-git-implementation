@@ -1,10 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.change_operations = change_operations;
-const interfaces_1 = require("./interfaces");
 const object_library_1 = require("./object_library");
 function change_operations(path_directories) {
     const { get_object, get_commit } = (0, object_library_1.object_library)(path_directories);
+    /**
+     *
+     * @param tree_to_flatten an array containing references to files and folders
+     * @param options
+     * @returns Map<string,string> = Map< reference_path, hash>, a flat list of all the files referenced
+     */
     const flatten_tree = (tree_to_flatten, options = {}) => {
         let resultant_flat_map = new Map();
         const dump_to_res = (outer_tree) => {
@@ -25,7 +30,6 @@ function change_operations(path_directories) {
         let latest_commit;
         if (commit_hash && (latest_commit = get_commit(commit_hash))) {
             const commit_tree = get_object(latest_commit.tree_hash);
-            (0, interfaces_1.logger)('directory: ', flatten_tree(commit_tree));
             return flatten_tree(commit_tree);
         }
         return new Map();
