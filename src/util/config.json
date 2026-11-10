@@ -1,0 +1,11 @@
+{
+  "ref_heads_dir": ["refs","heads"],
+  "ref_tags_dir":["refs","tags"],
+  "object_dir":"objects",
+  "HEAD_dir": "HEAD",
+  "index_dir": "index.json",
+  "repo_dir":".als",
+  "merge_head":"MERGE_HEAD",
+  "merge_msg":"MERGE_MSG"
+
+}
