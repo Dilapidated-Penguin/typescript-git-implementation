@@ -48,8 +48,9 @@ Usage aligns largely with the usage of git for the aformentioned implemented com
 Making use of the node-object-hash@3.1.1 package, and the pako@2.1.0 package, using zlib compression, the objects library in this implementation, closely mirroring their git counterpart with the principal difference being that objects being that git objects, for the sake of readability are constructed using typescript objects:
 - Commits:
 
-<img width="679" height="114" alt="image" src="https://github.com/user-attachments/assets/a3c165c2-a6b1-4ef8-bd8b-e25881c33415" />
 
+
+<img width="679" height="114" alt="image" src="https://github.com/user-attachments/assets/a3c165c2-a6b1-4ef8-bd8b-e25881c33415" />
 - Trees and index:
 Tree objects and the index are constructed using a list of the tree_reference object:
 
